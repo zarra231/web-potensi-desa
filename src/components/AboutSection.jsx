@@ -37,10 +37,10 @@ export default function AboutSection() {
           </p>
 
           <p>
-            Desa ini memiliki berbagai potensi lokal,
-            mulai dari usaha masyarakat, pertanian,
-            wisata, hingga seni dan budaya yang menjadi
-            bagian dari kehidupan masyarakat.
+            Desa ini menjadi pusat wirausaha berbasis komunitas, 
+            di mana setiap wilayahnya mengunggulkan berbagai industri
+            rumahan (UMKM) kreatif, mulai dari kerajinan tangan hingga kuliner,
+            sekaligus menjadi destinasi edukasi bagi para pelajar dan pelaku usaha.
           </p>
         </div>
       </div>

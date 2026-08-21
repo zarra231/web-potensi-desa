@@ -1,10 +1,10 @@
-import { Store, Trees, Wheat, Music, Map } from "lucide-react";
+import { Store, Trees, Wheat, Music, Map, PawPrint } from "lucide-react";
 
 const stats = [
-  { icon: Store,  value: "6",  label: "UMKM Terdata",     color: "#2D5016", bg: "#e4f0d0" },
-  { icon: Trees,  value: "3",  label: "Destinasi Wisata", color: "#0369A1", bg: "#dbeafe" },
-  { icon: Wheat,  value: "3",  label: "Sektor Pertanian", color: "#7A5C1E", bg: "#fef3c7" },
-  { icon: Music,  value: "2",  label: "Potensi Budaya",   color: "#7C3AED", bg: "#ede9fe" },
+  { icon: Store,  value: "4",  label: "UMKM Terdata",     color: "#2D5016", bg: "#e4f0d0" },
+  { icon: Trees,  value: "2",  label: "Destinasi Wisata", color: "#0369A1", bg: "#dbeafe" },
+  { icon: PawPrint,  value: "2",  label: "Sektor Peternakan", color: "#7A5C1E", bg: "#fef3c7" },
+  { icon: Music,  value: "3",  label: "Kerajinan",   color: "#7C3AED", bg: "#ede9fe" },
   { icon: Map,    value: "1",  label: "Peta Digital",      color: "#2D5016", bg: "#e4f0d0" },
 ];
 

@@ -7,13 +7,11 @@ import {
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
-
 import {
   Search,
   MapPin,
   X,
   ChevronRight,
-  ExternalLink,
 } from "lucide-react";
 
 import {
@@ -24,55 +22,19 @@ import {
 import "leaflet/dist/leaflet.css";
 
 // ============================================================
-// KOORDINAT KANTOR DESA TEGAL WARU
-// ============================================================
-
-const OFFICE_LOCATION = [-6.570951, 106.702758];
-
-// ============================================================
-// DATA KANTOR DESA
-// ============================================================
-
-const OFFICE_DATA = {
-  id: "office",
-  name: "Kantor Desa Tegal Waru",
-  category: "Pemerintahan",
-  subcategory: "Kantor Desa",
-  product: "Pelayanan pemerintahan desa",
-  address: "Desa Tegal Waru",
-  rt: "06",
-  rw: "03",
-  latitude: OFFICE_LOCATION[0],
-  longitude: OFFICE_LOCATION[1],
-  gmaps:
-    "https://maps.app.goo.gl/CqyCTyki4AFr3ESY6",
-  description:
-    "Kantor Pemerintahan Desa Tegal Waru sebagai pusat pelayanan administrasi dan pemerintahan desa.",
-};
-
-// ============================================================
 // WARNA MARKER
 // ============================================================
 
 const markerColors = {
   UMKM: "#2D6A3F",
-
   Wisata: "#1976A3",
-
   Pertanian: "#B8860B",
-
   Budaya: "#7C3AED",
-
   Kerajinan: "#8B5A2B",
-
   Perikanan: "#1785A7",
-
   Peternakan: "#A66A21",
-
   Pemerintahan: "#285943",
-
   "Sentra UMKM": "#2D6A3F",
-
   default: "#607D68",
 };
 
@@ -87,10 +49,7 @@ function getMarkerColor(item) {
   const subcategory =
     item.subcategory?.toLowerCase() || "";
 
-  // ----------------------------------------------------------
-  // PEMERINTAHAN
-  // ----------------------------------------------------------
-
+  // Pemerintahan
   if (
     category.includes("pemerintahan") ||
     category.includes("kantor")
@@ -98,10 +57,7 @@ function getMarkerColor(item) {
     return markerColors.Pemerintahan;
   }
 
-  // ----------------------------------------------------------
-  // KERAJINAN
-  // ----------------------------------------------------------
-
+  // Kerajinan
   if (
     category.includes("kerajinan") ||
     category.includes("pandai") ||
@@ -115,10 +71,7 @@ function getMarkerColor(item) {
     return markerColors.Kerajinan;
   }
 
-  // ----------------------------------------------------------
-  // WISATA
-  // ----------------------------------------------------------
-
+  // Wisata
   if (
     category.includes("wisata") ||
     category.includes("agro") ||
@@ -127,10 +80,7 @@ function getMarkerColor(item) {
     return markerColors.Wisata;
   }
 
-  // ----------------------------------------------------------
-  // PERIKANAN
-  // ----------------------------------------------------------
-
+  // Perikanan
   if (
     category.includes("perikanan") ||
     category.includes("ikan") ||
@@ -142,22 +92,17 @@ function getMarkerColor(item) {
     return markerColors.Perikanan;
   }
 
-  // ----------------------------------------------------------
-  // PETERNAKAN
-  // ----------------------------------------------------------
-
+  // Peternakan
   if (
     category.includes("peternakan") ||
     category.includes("ternak") ||
-    subcategory.includes("peternakan")
+    subcategory.includes("peternakan") ||
+    subcategory.includes("ternak")
   ) {
     return markerColors.Peternakan;
   }
 
-  // ----------------------------------------------------------
-  // PERTANIAN
-  // ----------------------------------------------------------
-
+  // Pertanian
   if (
     category.includes("pertanian") ||
     category.includes("tani") ||
@@ -166,10 +111,7 @@ function getMarkerColor(item) {
     return markerColors.Pertanian;
   }
 
-  // ----------------------------------------------------------
-  // BUDAYA
-  // ----------------------------------------------------------
-
+  // Budaya
   if (
     category.includes("budaya") ||
     category.includes("seni") ||
@@ -179,13 +121,11 @@ function getMarkerColor(item) {
     return markerColors.Budaya;
   }
 
-  // ----------------------------------------------------------
   // UMKM
-  // ----------------------------------------------------------
-
   if (
     category.includes("umkm") ||
-    category.includes("sentra")
+    category.includes("sentra") ||
+    subcategory.includes("umkm")
   ) {
     return markerColors.UMKM;
   }
@@ -194,7 +134,7 @@ function getMarkerColor(item) {
 }
 
 // ============================================================
-// GROUP / KATEGORI FILTER
+// GROUP / KATEGORI UNTUK FILTER
 // ============================================================
 
 function getGroupCategory(item) {
@@ -204,7 +144,6 @@ function getGroupCategory(item) {
   const subcategory =
     item.subcategory?.toLowerCase() || "";
 
-  // Pemerintahan
   if (
     category.includes("pemerintahan") ||
     category.includes("kantor")
@@ -212,20 +151,19 @@ function getGroupCategory(item) {
     return "Pemerintahan";
   }
 
-  // Kerajinan
   if (
     category.includes("kerajinan") ||
     category.includes("pandai") ||
     category.includes("craft") ||
     category.includes("besi") ||
     subcategory.includes("kerajinan") ||
+    subcategory.includes("pandai") ||
     subcategory.includes("craft") ||
     subcategory.includes("besi")
   ) {
     return "Kerajinan";
   }
 
-  // Wisata
   if (
     category.includes("wisata") ||
     category.includes("agro") ||
@@ -234,43 +172,46 @@ function getGroupCategory(item) {
     return "Wisata";
   }
 
-  // Perikanan
   if (
     category.includes("perikanan") ||
     category.includes("ikan") ||
-    category.includes("akuakultur")
+    category.includes("akuakultur") ||
+    subcategory.includes("perikanan") ||
+    subcategory.includes("ikan")
   ) {
     return "Perikanan";
   }
 
-  // Peternakan
   if (
     category.includes("peternakan") ||
-    category.includes("ternak")
+    category.includes("ternak") ||
+    subcategory.includes("peternakan") ||
+    subcategory.includes("ternak")
   ) {
     return "Peternakan";
   }
 
-  // Pertanian
   if (
     category.includes("pertanian") ||
-    category.includes("tani")
+    category.includes("tani") ||
+    subcategory.includes("pertanian")
   ) {
     return "Pertanian";
   }
 
-  // Budaya
   if (
     category.includes("budaya") ||
-    category.includes("seni")
+    category.includes("seni") ||
+    subcategory.includes("budaya") ||
+    subcategory.includes("seni")
   ) {
     return "Budaya";
   }
 
-  // UMKM
   if (
     category.includes("umkm") ||
-    category.includes("sentra")
+    category.includes("sentra") ||
+    subcategory.includes("umkm")
   ) {
     return "UMKM";
   }
@@ -279,10 +220,40 @@ function getGroupCategory(item) {
 }
 
 // ============================================================
-// CUSTOM MARKER POTENSI
+// CUSTOM MARKER
 // ============================================================
 
-function createCategoryIcon(color) {
+function createCategoryIcon(color, isOffice = false) {
+  if (isOffice) {
+    return L.divIcon({
+      className: "office-marker",
+
+      html: `
+        <div
+          style="
+            width: 40px;
+            height: 40px;
+            background: ${color};
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+          "
+        >
+          🏛️
+        </div>
+      `,
+
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+      popupAnchor: [0, -22],
+    });
+  }
+
   return L.divIcon({
     className: "custom-category-marker",
 
@@ -319,38 +290,6 @@ function createCategoryIcon(color) {
 }
 
 // ============================================================
-// CUSTOM MARKER KANTOR DESA
-// ============================================================
-
-const officeIcon = L.divIcon({
-  className: "office-marker",
-
-  html: `
-    <div
-      style="
-        width: 40px;
-        height: 40px;
-        background: #285943;
-        border: 3px solid white;
-        border-radius: 50%;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.35);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 18px;
-      "
-    >
-      🏛️
-    </div>
-  `,
-
-  iconSize: [40, 40],
-  iconAnchor: [20, 20],
-  popupAnchor: [0, -22],
-});
-
-// ============================================================
 // MAP CONTROLLER
 // ============================================================
 
@@ -372,7 +311,7 @@ function MapController({ selectedItem }) {
 
     map.flyTo(
       [lat, lng],
-      16,
+      17,
       {
         duration: 0.8,
       }
@@ -417,26 +356,6 @@ function MapBounds({ data }) {
 }
 
 // ============================================================
-// GOOGLE MAPS BUTTON
-// ============================================================
-
-function GoogleMapsButton({ url }) {
-  if (!url) return null;
-
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="google-maps-button"
-    >
-      <ExternalLink size={12} />
-      Lihat di Google Maps
-    </a>
-  );
-}
-
-// ============================================================
 // MAP SECTION
 // ============================================================
 
@@ -450,33 +369,15 @@ export default function MapSection() {
     useState(null);
 
   // ==========================================================
-  // DATA POTENSI
+  // SEMUA DATA
   //
-  // Kantor Desa yang ada di potensiData lama diabaikan.
-  // Kantor Desa menggunakan OFFICE_DATA.
+  // SEMUA DATA MURNI DARI umkmData.js
+  // TIDAK ADA DATA MANUAL DI SINI
   // ==========================================================
 
-  const validPotentialData = useMemo(() => {
+  const allData = useMemo(() => {
     return potensiData
       .filter((item) => {
-        // Hapus Kantor Desa lama
-        if (
-          item.name
-            ?.toLowerCase()
-            .includes("kantor desa")
-        ) {
-          return false;
-        }
-
-        // Hapus data pemerintahan lama
-        if (
-          item.category
-            ?.toLowerCase()
-            .includes("pemerintahan")
-        ) {
-          return false;
-        }
-
         const lat = Number(item.latitude);
         const lng = Number(item.longitude);
 
@@ -493,34 +394,15 @@ export default function MapSection() {
   }, []);
 
   // ==========================================================
-  // SEMUA DATA
-  // ==========================================================
-
-  const allData = useMemo(() => {
-    return [
-      ...validPotentialData,
-      OFFICE_DATA,
-    ];
-  }, [validPotentialData]);
-
-  // ==========================================================
-  // DATA MAP
+  // DATA UNTUK MAP
   // ==========================================================
 
   const mapData = useMemo(() => {
-    return allData.filter((item) => {
-      const lat = Number(item.latitude);
-      const lng = Number(item.longitude);
-
-      return (
-        Number.isFinite(lat) &&
-        Number.isFinite(lng)
-      );
-    });
+    return allData;
   }, [allData]);
 
   // ==========================================================
-  // FILTER DATA SIDEBAR
+  // FILTER DATA
   // ==========================================================
 
   const filteredData = useMemo(() => {
@@ -531,17 +413,9 @@ export default function MapSection() {
       const groupCategory =
         getGroupCategory(item);
 
-      // ------------------------------------------------------
-      // FILTER KATEGORI
-      // ------------------------------------------------------
-
       const matchesCategory =
         activeCategory === "Semua" ||
         groupCategory === activeCategory;
-
-      // ------------------------------------------------------
-      // SEARCH
-      // ------------------------------------------------------
 
       const searchableText = [
         item.name,
@@ -643,8 +517,19 @@ export default function MapSection() {
   };
 
   // ==========================================================
-  // RENDER
+  // DEFAULT CENTER
+  //
+  // Mengambil lokasi data pertama yang valid.
+  // Jadi tidak ada koordinat kantor desa hardcode.
   // ==========================================================
+
+  const defaultCenter =
+    allData.length > 0
+      ? [
+          Number(allData[0].latitude),
+          Number(allData[0].longitude),
+        ]
+      : [-6.570951, 106.702758];
 
   return (
     <section
@@ -745,7 +630,7 @@ export default function MapSection() {
             }}
           >
             <MapContainer
-              center={OFFICE_LOCATION}
+              center={defaultCenter}
               zoom={14}
               scrollWheelZoom={true}
               style={{
@@ -759,290 +644,235 @@ export default function MapSection() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
 
-              {/* FIT MAP */}
+              {/* FIT SEMUA MARKER */}
 
               <MapBounds data={mapData} />
 
-              {/* MAP CONTROLLER */}
+              {/* CONTROLLER MARKER */}
 
               <MapController
                 selectedItem={selectedItem}
               />
 
-              {/* ==============================================
-                  MARKER POTENSI
-              ============================================== */}
+              {/* =================================================
+                  SEMUA MARKER
+              ================================================= */}
 
-              {validPotentialData.map(
-                (item) => {
-                  const lat =
-                    Number(item.latitude);
+              {allData.map((item) => {
+                const lat =
+                  Number(item.latitude);
 
-                  const lng =
-                    Number(item.longitude);
+                const lng =
+                  Number(item.longitude);
 
-                  const markerColor =
-                    getMarkerColor(item);
+                const markerColor =
+                  getMarkerColor(item);
 
-                  return (
-                    <Marker
-                      key={item.id}
-                      position={[
-                        lat,
-                        lng,
-                      ]}
-                      icon={createCategoryIcon(
-                        markerColor
-                      )}
-                      eventHandlers={{
-                        click: () => {
-                          setSelectedItem(
-                            item
-                          );
-                        },
-                      }}
-                    >
+                const groupCategory =
+                  getGroupCategory(item);
 
-                      {/* ====================================
-                          POPUP POTENSI
-                      ==================================== */}
+                const isOffice =
+                  groupCategory ===
+                  "Pemerintahan";
 
-                      <Popup>
+                return (
+                  <Marker
+                    key={item.id}
+                    position={[
+                      lat,
+                      lng,
+                    ]}
+                    icon={createCategoryIcon(
+                      markerColor,
+                      isOffice
+                    )}
+                    eventHandlers={{
+                      click: () => {
+                        setSelectedItem(item);
+                      },
+                    }}
+                  >
+
+                    {/* =================================================
+                        POPUP
+                    ================================================= */}
+
+                    <Popup>
+                      <div
+                        style={{
+                          width: 230,
+                          fontFamily:
+                            "Poppins, sans-serif",
+                        }}
+                      >
+
+                        {/* FOTO */}
+
+                        {item.image && (
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            style={{
+                              width: "100%",
+                              height: 110,
+                              objectFit: "cover",
+                              borderRadius: 8,
+                              marginBottom: 9,
+                            }}
+                          />
+                        )}
+
+                        {/* NAMA */}
+
                         <div
                           style={{
-                            minWidth: 200,
-                            fontFamily:
-                              "Poppins, sans-serif",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            color:
+                              "var(--charcoal)",
+                            marginBottom: 6,
                           }}
                         >
+                          {item.name}
+                        </div>
 
-                          {/* NAMA */}
+                        {/* CATEGORY */}
 
+                        <div
+                          style={{
+                            display:
+                              "inline-block",
+                            padding:
+                              "4px 9px",
+                            borderRadius: 10,
+                            backgroundColor:
+                              markerColor,
+                            color: "white",
+                            fontSize: 9,
+                            fontWeight: 600,
+                            marginBottom: 8,
+                          }}
+                        >
+                          {item.category}
+                        </div>
+
+                        {/* SUBCATEGORY */}
+
+                        {item.subcategory && (
                           <div
                             style={{
-                              fontSize: 14,
-                              fontWeight: 700,
-                              color:
-                                "var(--charcoal)",
-                              marginBottom: 6,
+                              fontSize: 10,
+                              color: "#777",
+                              marginBottom: 5,
                             }}
                           >
-                            {item.name}
+                            {item.subcategory}
                           </div>
+                        )}
 
-                          {/* CATEGORY */}
+                        {/* PRODUCT */}
 
-                          <div
-                            style={{
-                              display:
-                                "inline-block",
-                              padding:
-                                "4px 9px",
-                              borderRadius: 10,
-                              backgroundColor:
-                                markerColor,
-                              color: "white",
-                              fontSize: 9,
-                              fontWeight: 600,
-                              marginBottom: 8,
-                            }}
-                          >
-                            {item.category}
-                          </div>
-
-                          {/* SUBCATEGORY */}
-
-                          {item.subcategory && (
-                            <div
-                              style={{
-                                fontSize: 10,
-                                color: "#777",
-                                marginBottom: 5,
-                              }}
-                            >
-                              {item.subcategory}
-                            </div>
-                          )}
-
-                          {/* PRODUCT */}
-
-                          {item.product && (
-                            <div
-                              style={{
-                                fontSize: 10,
-                                color: "#777",
-                                lineHeight: 1.5,
-                                marginBottom: 7,
-                              }}
-                            >
-                              {item.product}
-                            </div>
-                          )}
-
-                          {/* ADDRESS */}
-
+                        {item.product && (
                           <div
                             style={{
                               fontSize: 10,
                               color: "#777",
                               lineHeight: 1.5,
+                              marginBottom: 7,
                             }}
                           >
-                            📍{" "}
-                            {item.address ||
-                              "Desa Tegal Waru"}
+                            {item.product}
                           </div>
+                        )}
 
-                          {/* RT / RW */}
+                        {/* ADDRESS */}
 
-                          {(item.rt ||
-                            item.rw) && (
-                            <div
-                              style={{
-                                fontSize: 10,
-                                color: "#777",
-                                marginTop: 4,
-                              }}
-                            >
-                              RT{" "}
-                              {item.rt ||
-                                "—"}{" "}
-                              / RW{" "}
-                              {item.rw ||
-                                "—"}
-                            </div>
-                          )}
-
-                          {/* ==================================
-                              GOOGLE MAPS BUTTON
-                          ================================== */}
-
-                          <GoogleMapsButton
-                            url={item.gmaps}
-                          />
-
+                        <div
+                          style={{
+                            fontSize: 10,
+                            color: "#777",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          📍{" "}
+                          {item.address ||
+                            "Desa Tegal Waru"}
                         </div>
-                      </Popup>
 
-                    </Marker>
-                  );
-                }
-              )}
+                        {/* RT RW */}
 
-              {/* ==============================================
-                  MARKER KANTOR DESA
-              ============================================== */}
+                        {(item.rt ||
+                          item.rw) && (
+                          <div
+                            style={{
+                              fontSize: 10,
+                              color: "#777",
+                              marginTop: 4,
+                            }}
+                          >
+                            RT{" "}
+                            {item.rt ||
+                              "—"}{" "}
+                            / RW{" "}
+                            {item.rw ||
+                              "—"}
+                          </div>
+                        )}
 
-              <Marker
-                position={OFFICE_LOCATION}
-                icon={officeIcon}
-                eventHandlers={{
-                  click: () => {
-                    setSelectedItem(
-                      OFFICE_DATA
-                    );
-                  },
-                }}
-              >
+                        {/* =================================================
+                            BUTTON GOOGLE MAPS
+                        ================================================= */}
 
-                {/* ============================================
-                    POPUP KANTOR DESA
-                ============================================ */}
+                        {item.gmaps && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              window.open(
+                                item.gmaps,
+                                "_blank",
+                                "noopener,noreferrer"
+                              );
+                            }}
+                            style={{
+                              width: "100%",
+                              marginTop: 10,
+                              padding:
+                                "7px 10px",
+                              border: `1px solid ${markerColor}`,
+                              borderRadius: 7,
+                              backgroundColor:
+                                markerColor,
+                              color: "#ffffff",
+                              fontFamily:
+                                "Poppins, sans-serif",
+                              fontSize: 10,
+                              fontWeight: 600,
+                              cursor:
+                                "pointer",
+                              display:
+                                "flex",
+                              alignItems:
+                                "center",
+                              justifyContent:
+                                "center",
+                              gap: 5,
+                            }}
+                          >
+                            <MapPin size={12} />
 
-                <Popup>
-                  <div
-                    style={{
-                      minWidth: 200,
-                      fontFamily:
-                        "Poppins, sans-serif",
-                    }}
-                  >
+                            Lihat di Google Maps
 
-                    {/* NAMA */}
+                            <ChevronRight
+                              size={12}
+                            />
+                          </button>
+                        )}
 
-                    <div
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color:
-                          "var(--charcoal)",
-                        marginBottom: 6,
-                      }}
-                    >
-                      {OFFICE_DATA.name}
-                    </div>
-
-                    {/* CATEGORY */}
-
-                    <div
-                      style={{
-                        display:
-                          "inline-block",
-                        padding: "4px 9px",
-                        backgroundColor:
-                          "#285943",
-                        color: "white",
-                        borderRadius: 10,
-                        fontSize: 9,
-                        fontWeight: 600,
-                        marginBottom: 8,
-                      }}
-                    >
-                      {OFFICE_DATA.category}
-                    </div>
-
-                    {/* ADDRESS */}
-
-                    <div
-                      style={{
-                        fontSize: 10,
-                        color: "#777",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      📍{" "}
-                      {OFFICE_DATA.address}
-                    </div>
-
-                    {/* KOORDINAT */}
-
-                    <div
-                      style={{
-                        fontSize: 10,
-                        color: "#777",
-                        marginTop: 4,
-                      }}
-                    >
-                      📌{" "}
-                      {OFFICE_DATA.latitude},{" "}
-                      {OFFICE_DATA.longitude}
-                    </div>
-
-                    {/* RT / RW */}
-
-                    <div
-                      style={{
-                        fontSize: 10,
-                        color: "#777",
-                        marginTop: 4,
-                      }}
-                    >
-                      RT {OFFICE_DATA.rt} / RW{" "}
-                      {OFFICE_DATA.rw}
-                    </div>
-
-                    {/* ========================================
-                        GOOGLE MAPS BUTTON
-                    ======================================== */}
-
-                    <GoogleMapsButton
-                      url={OFFICE_DATA.gmaps}
-                    />
-
-                  </div>
-                </Popup>
-
-              </Marker>
+                      </div>
+                    </Popup>
+                  </Marker>
+                );
+              })}
 
             </MapContainer>
 
@@ -1078,7 +908,7 @@ export default function MapSection() {
                 }}
               />
 
-              Kantor Desa Tegal Waru
+              Peta Potensi Desa Tegal Waru
             </div>
           </div>
 
@@ -1122,8 +952,8 @@ export default function MapSection() {
                   marginBottom: 12,
                 }}
               >
-                <div>
 
+                <div>
                   <h3
                     style={{
                       margin: 0,
@@ -1147,17 +977,18 @@ export default function MapSection() {
                     {filteredData.length}{" "}
                     lokasi ditemukan
                   </span>
-
                 </div>
+
               </div>
 
-              {/* ==============================================
+              {/* =================================================
                   SEARCH
-              ============================================== */}
+              ================================================= */}
 
               <div
                 style={{
-                  position: "relative",
+                  position:
+                    "relative",
                   marginBottom: 12,
                 }}
               >
@@ -1219,7 +1050,8 @@ export default function MapSection() {
                       border: "none",
                       background:
                         "transparent",
-                      cursor: "pointer",
+                      cursor:
+                        "pointer",
                       padding: 3,
                       color: "#888",
                     }}
@@ -1230,9 +1062,9 @@ export default function MapSection() {
 
               </div>
 
-              {/* ==============================================
+              {/* =================================================
                   FILTER KATEGORI
-              ============================================== */}
+              ================================================= */}
 
               <div
                 className="map-category-filter"
@@ -1266,35 +1098,25 @@ export default function MapSection() {
                         }
                         style={{
                           flexShrink: 0,
-
                           border: `1px solid ${color}`,
-
                           backgroundColor:
                             active
                               ? color
                               : "#ffffff",
-
                           color: active
                             ? "#ffffff"
                             : color,
-
                           borderRadius: 20,
-
                           padding:
                             "5px 10px",
-
                           fontFamily:
                             "Poppins, sans-serif",
-
                           fontSize: 9,
-
                           fontWeight: 600,
-
-                          cursor: "pointer",
-
+                          cursor:
+                            "pointer",
                           transition:
                             "all 0.15s ease",
-
                           boxShadow:
                             active
                               ? `0 2px 6px ${color}40`
@@ -1348,10 +1170,8 @@ export default function MapSection() {
                       ] || {
                         color:
                           markerColor,
-
                         bgLight:
                           `${markerColor}15`,
-
                         emoji:
                           groupCategory ===
                           "Pemerintahan"
@@ -1389,31 +1209,22 @@ export default function MapSection() {
                         style={{
                           width: "100%",
                           textAlign: "left",
-
                           border:
                             isSelected
                               ? `1px solid ${markerColor}`
                               : "1px solid transparent",
-
                           backgroundColor:
                             isSelected
                               ? `${markerColor}12`
                               : "#ffffff",
-
                           borderRadius: 10,
-
                           padding: 11,
-
                           marginBottom: 7,
-
                           cursor: "pointer",
-
                           fontFamily:
                             "Poppins, sans-serif",
-
                           transition:
                             "all 0.15s ease",
-
                           boxSizing:
                             "border-box",
                         }}
@@ -1428,32 +1239,55 @@ export default function MapSection() {
                           }}
                         >
 
-                          {/* ICON */}
+                          {/* FOTO / ICON */}
 
                           <div
                             style={{
-                              width: 34,
-                              height: 34,
+                              width: 44,
+                              height: 44,
                               flexShrink: 0,
-
                               display: "flex",
                               alignItems:
                                 "center",
                               justifyContent:
                                 "center",
-
                               backgroundColor:
                                 `${markerColor}18`,
-
                               borderRadius: 8,
-
-                              fontSize: 17,
-
+                              overflow:
+                                "hidden",
                               border:
                                 `1px solid ${markerColor}25`,
                             }}
                           >
-                            {cfg.emoji}
+
+                            {item.image ? (
+                              <img
+                                src={
+                                  item.image
+                                }
+                                alt={
+                                  item.name
+                                }
+                                style={{
+                                  width:
+                                    "100%",
+                                  height:
+                                    "100%",
+                                  objectFit:
+                                    "cover",
+                                }}
+                              />
+                            ) : (
+                              <span
+                                style={{
+                                  fontSize: 20,
+                                }}
+                              >
+                                {cfg.emoji}
+                              </span>
+                            )}
+
                           </div>
 
                           {/* CONTENT */}
@@ -1567,27 +1401,22 @@ export default function MapSection() {
 
               ) : (
 
-                /* ============================================
+                /* =================================================
                    EMPTY STATE
-                ============================================ */
+                ================================================= */
 
                 <div
                   style={{
                     height: "100%",
                     minHeight: 250,
-
                     display: "flex",
                     flexDirection:
                       "column",
-
                     alignItems:
                       "center",
-
                     justifyContent:
                       "center",
-
                     textAlign: "center",
-
                     padding: 20,
                   }}
                 >
@@ -1598,16 +1427,13 @@ export default function MapSection() {
                       height: 45,
                       borderRadius:
                         "50%",
-
                       backgroundColor:
                         "#f0f2ed",
-
                       display: "flex",
                       alignItems:
                         "center",
                       justifyContent:
                         "center",
-
                       marginBottom: 12,
                     }}
                   >
@@ -1654,10 +1480,6 @@ export default function MapSection() {
 
       <style>{`
 
-        /* ====================================================
-           SCROLLBAR LIST
-        ==================================================== */
-
         .map-list::-webkit-scrollbar {
           width: 5px;
         }
@@ -1671,17 +1493,9 @@ export default function MapSection() {
           border-radius: 10px;
         }
 
-        /* ====================================================
-           FILTER SCROLLBAR
-        ==================================================== */
-
         .map-category-filter::-webkit-scrollbar {
           display: none;
         }
-
-        /* ====================================================
-           CUSTOM MARKER
-        ==================================================== */
 
         .custom-category-marker {
           background: transparent !important;
@@ -1693,60 +1507,9 @@ export default function MapSection() {
           border: none !important;
         }
 
-        /* ====================================================
-           GOOGLE MAPS BUTTON
-        ==================================================== */
-
-        .google-maps-button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-
-          width: 100%;
-
-          margin-top: 12px;
-
-          padding: 8px 10px;
-
-          background-color: #285943;
-          color: #ffffff;
-
-          border-radius: 7px;
-
-          text-decoration: none;
-
-          font-family:
-            Poppins,
-            sans-serif;
-
-          font-size: 10px;
-          font-weight: 600;
-
-          box-sizing: border-box;
-
-          transition:
-            background-color 0.15s ease,
-            transform 0.15s ease;
-        }
-
-        .google-maps-button:hover {
-          background-color: #214b38;
-          color: #ffffff;
-          transform: translateY(-1px);
-        }
-
-        /* ====================================================
-           FILTER HOVER
-        ==================================================== */
-
         .map-category-filter button:hover {
           transform: translateY(-1px);
         }
-
-        /* ====================================================
-           RESPONSIVE
-        ==================================================== */
 
         @media (max-width: 1000px) {
 
@@ -1762,7 +1525,6 @@ export default function MapSection() {
           .map-layout {
             grid-template-columns:
               1fr !important;
-
             height: auto !important;
           }
 
@@ -1772,9 +1534,7 @@ export default function MapSection() {
 
           .map-sidebar {
             height: 430px;
-
             border-left: none !important;
-
             border-top:
               1px solid var(--border);
           }
