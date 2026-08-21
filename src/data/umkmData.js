@@ -257,8 +257,8 @@ export const potensiData = [
     rt: "—",
     rw: "—",
 
-    latitude: -6.583540,
-    longitude: 106.699478,
+    latitude: -6.562305,
+    longitude: 106.7010340,
 
     gmaps:
       "https://maps.app.goo.gl/CAEfmobGyUuQ364L6",
@@ -284,7 +284,7 @@ export const potensiData = [
     rt: "06",
     rw: "03",
 
-    latitude: -6.56891688,   
+    latitude: -6.56891688,
     longitude: 106.7005688,
 
     gmaps:
@@ -310,10 +310,13 @@ export const potensiData = [
     address: "Tegalwaru",
     rt: "01",
     rw: "01",
-    latitude:  -6.589885,
-    longitude: 106.696144,
+
+    latitude: -6.5726096,
+    longitude: 106.6969285,
+
     gmaps:
       "https://maps.app.goo.gl/nMaNMDPMreuop3Be6",
+
     description:
       "UKM masyarakat Desa Tegal Waru yang bergerak dalam bidang produk herbal.",
   },
@@ -332,10 +335,14 @@ export const potensiData = [
     address: "Tegalwaru",
     rt: "01",
     rw: "01",
-    latitude: -6.589885,
-    longitude: 106.696144,
+
+    // Dioffset ~50m ke timur agar tidak overlap dengan item 11
+    latitude: -6.5726096,
+    longitude: 106.6973806,
+
     gmaps:
       "https://maps.app.goo.gl/e9JhEXvc4gp9qWHL7",
+
     description:
       "UKM masyarakat Desa Tegal Waru yang bergerak dalam produksi makanan berupa kerupuk.",
   },
@@ -354,10 +361,13 @@ export const potensiData = [
     address: "Tegalwaru",
     rt: "02",
     rw: "03",
-    latitude: -6.575005,
-    longitude: 106.708871,
+
+    latitude: -6.568472,
+    longitude: 106.696111,
+
     gmaps:
       "https://maps.app.goo.gl/ZFq1GKMAKkaV4btk7",
+
     description:
       "UKM masyarakat Desa Tegal Waru yang bergerak dalam produksi makanan berupa brownies.",
   },
