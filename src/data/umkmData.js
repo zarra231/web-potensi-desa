@@ -33,7 +33,7 @@ export const potensiData = [
 
   {
     id: 1,
-    name: "UKM Pandai Besi Tegalwaru",
+    name: "UKM Panday Besi Tegalwaru",
     category: "Kerajinan",
     subcategory: "Pandai Besi",
     product: "Kerajinan dan produk pandai besi",
@@ -119,7 +119,7 @@ export const potensiData = [
     subcategory: "Agro",
     product: "Agrowisata dan edukasi pertanian",
     address: "Tegalwaru",
-    rt: "—",
+    rt: "04",
     rw: "05",
 
     latitude: -6.570412,
@@ -146,7 +146,7 @@ export const potensiData = [
     subcategory: "Perikanan",
     product: "Budidaya ikan",
     address: "Tegalwaru",
-    rt: "—",
+    rt: "04",
     rw: "05",
 
     latitude: -6.573777,
@@ -200,7 +200,7 @@ export const potensiData = [
     subcategory: "Sentra UMKM",
     product: "Berbagai produk UMKM",
     address: "Tegalwaru",
-    rt: "—",
+    rt: "04",
     rw: "05",
 
     latitude: -6.570411,
@@ -255,7 +255,7 @@ export const potensiData = [
     product: "Susu segar",
     address: "Tegalwaru",
     rt: "—",
-    rw: "—",
+    rw: "05",
 
     latitude: -6.562305,
     longitude: 106.7010340,
